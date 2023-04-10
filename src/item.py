@@ -1,3 +1,6 @@
+import csv
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -6,28 +9,48 @@ class Item:
     all = []
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
-        """
-        Создание экземпляра класса item.
+        self.__name = name #Название товара
+        self.price = price #Цена за единицу товара.
+        self.quantity = quantity #Количество товара в магазине
 
-        :param name: Название товара.
-        :param price: Цена за единицу товара.
-        :param quantity: Количество товара в магазине.
-        """
-        self.name = name
-        self.price = price
-        self.quantity = quantity
-        self.all.append(self)
+
+    """
+    Добавление геттера и сеттера для переменой name
+    """
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        if len(name) < 10:
+            self.__name = name
+        else:
+            print(" Название товара слишком длинное")
 
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
-
         :return: Общая стоимость товара.
         """
-        return self.quantity*self.price
+        return self.price * self.quantity
 
-    def apply_discount(self) -> None:
+    def apply_discount(self) -> float:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        self.price = self.price * self.pay_rate
+        self.price *= Item.pay_rate
+        return self.price
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open("../src/items.csv", newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                Item.all.append(Item(row['name'], row["price"], row['quantity']))
+
+    @staticmethod
+    def string_to_number(number):
+        '''статический метод, возвращающий число из числа-строки'''
+        return int(number.split('.')[0])
