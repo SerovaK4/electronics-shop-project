@@ -23,20 +23,14 @@ def test_name(smartphone):
     assert smartphone.name == "Смартфон"
 
 
-def test_instantiate_from_csv(cls):
-
-    print()
-
-
-
-
+def test_setter():
+    item2 = Item("Компьютер", 130000, 10)
+    item2.name = "Компьютер"
+    assert item2.name == "Компьютер"
+    with pytest.raises(Exception):
+        item2.name = "Суперкомпьютер"
 
 
 def test_string_to_number(smartphone):
     assert smartphone.string_to_number("3") == 3
-
-
-
-
-
 

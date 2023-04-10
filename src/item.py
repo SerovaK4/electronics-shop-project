@@ -27,7 +27,7 @@ class Item:
         if len(name) < 10:
             self.__name = name
         else:
-            print(" Название товара слишком длинное")
+            raise Exception('Длина наименования превышает 10 символов')
 
     def calculate_total_price(self) -> float:
         """
