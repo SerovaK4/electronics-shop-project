@@ -34,3 +34,10 @@ def test_setter():
 def test_string_to_number(smartphone):
     assert smartphone.string_to_number("3") == 3
 
+
+def test_repr(smartphone):
+    assert repr(smartphone) == "Item('Смартфон', 50000, 5)"
+
+
+def test_str(smartphone):
+    assert str(smartphone) == 'Смартфон'
