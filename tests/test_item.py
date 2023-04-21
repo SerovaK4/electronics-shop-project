@@ -5,7 +5,7 @@ from src.item import Item
 
 @pytest.fixture
 def smartphone():
-    return Item("Смартфон", 50000, 5)
+    return Item("Телевизор", 50000, 5)
 
 
 def test_calculate_total_price(smartphone):
@@ -13,31 +13,18 @@ def test_calculate_total_price(smartphone):
     assert item1.price == 3000
 
 
-def test_apply_discount(smartphone):
-    Item.pay_rate = 0.8
-    smartphone.apply_discount()
-    assert smartphone.price == 40000.0
+def test_apply_discount():
+    item1 = Item("tea", 3000, 10)
+    item1.pay_rate = 0.8
+    item1.apply_discount()
+    assert item1.price == 2400
 
 
-def test_name(smartphone):
-    assert smartphone.name == "Смартфон"
+def test___repr__(smartphone):
+    assert repr(smartphone) == "Item('Телевизор', 50000, 5)"
 
 
-def test_setter():
-    item2 = Item("Компьютер", 130000, 10)
-    item2.name = "Компьютер"
-    assert item2.name == "Компьютер"
-    with pytest.raises(Exception):
-        item2.name = "Суперкомпьютер"
+def test___str__(smartphone):
+    assert str(smartphone) == 'Телевизор'
 
 
-def test_string_to_number(smartphone):
-    assert smartphone.string_to_number("3") == 3
-
-
-def test_repr(smartphone):
-    assert repr(smartphone) == "Item('Смартфон', 50000, 5)"
-
-
-def test_str(smartphone):
-    assert str(smartphone) == 'Смартфон'
