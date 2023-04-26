@@ -28,3 +28,7 @@ def test___str__(smartphone):
     assert str(smartphone) == 'Телевизор'
 
 
+def test_item(smartphone):
+    assert smartphone.name == "Телевизор"
+    assert smartphone.price == 50000
+    assert smartphone.quantity == 5
