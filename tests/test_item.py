@@ -1,6 +1,6 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 
 
 @pytest.fixture
@@ -32,3 +32,19 @@ def test_item(smartphone):
     assert smartphone.name == "Телевизор"
     assert smartphone.price == 50000
     assert smartphone.quantity == 5
+
+
+@pytest.fixture()
+def some_exception():
+    return InstantiateCSVError()
+
+
+def test_instantiate_from_csv():
+    Item.all = []
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5
+
+
+def test_exception(some_exception):
+    assert str(some_exception) == 'Файл item.csv поврежден'
+
